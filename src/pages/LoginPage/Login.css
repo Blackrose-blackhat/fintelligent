@@ -1,7 +1,7 @@
+
 .login-page
 {
-    
-    background-image: linear-gradient(to right,rgb(123, 205, 237),rgb(0, 140, 255),blue);
+    background-image: linear-gradient(to right,rgb(45, 177, 229),rgb(0, 140, 255),blue);
     height: 100vh; 
     background-position:center;
     background-repeat: no-repeat;
@@ -15,6 +15,7 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     font-size:3vw;
+    color: white;
 }
 .intro{
     width: 2px;
@@ -23,6 +24,7 @@
     position: fixed;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 1vw;
     gap: 2vw;
     width: 40vw;
@@ -51,4 +53,37 @@
     justify-content: center;
     gap: 7vw;
 }
-
+#loginbtn {
+   background-color: #004aad;
+   width: 600px;
+   max-width: 700px;
+   border-radius: 2vw;
+   border: none;
+   height: 4.5vh;
+   color:white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.text1{
+    font-size: 1.5rem;
+}
+#googlebtn {
+    background-color: #004aad;
+    width: 600px;
+    max-width: 700px;
+    border-radius: 2vw;
+    border: none;
+    height: 4.5vh;
+    color:white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    gap: 20px;
+}
+.signin{
+    color: #004aad;
+    text-decoration: none;
+}
