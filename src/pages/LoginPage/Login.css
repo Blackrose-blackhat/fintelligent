@@ -1,0 +1,54 @@
+.login-page
+{
+    
+    background-image: linear-gradient(to right,rgb(123, 205, 237),rgb(0, 140, 255),blue);
+    height: 100vh; 
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.intro h1{
+    padding-left: 2vw;
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size:3vw;
+}
+.intro{
+    width: 2px;
+}
+.login-form{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+    gap: 2vw;
+    width: 40vw;
+    background-color: white;
+    margin-left: 60%;
+    margin-top: 7%;
+    height: 74vh;
+    border-top-left-radius: 5vw;
+    border-bottom-left-radius: 5vw;
+}
+.login-text text{
+    display: contents;
+    font-size:2.5vw;
+
+}
+.login-text h3
+{
+    font-size: 1vw;
+    font-weight: 200;
+}
+.login-form .row1
+{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 7vw;
+}
+
