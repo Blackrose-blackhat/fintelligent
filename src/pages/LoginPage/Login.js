@@ -1,31 +1,38 @@
-import React from "react";
-import { Button, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Button } from "@mui/material";
 import "./Login.css";
 import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import GoogleIcon from "@mui/icons-material/Google";
-import { red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
-const inputProps = {
-  step: 30,
-};
+
 function Login() {
+  const click = () => {
+    alert("Your email is " + email);
+  };
+  const [email, setEmail] = useState("");
   return (
-    <div className="login-page">
+    <form className="login-page">
       <div className="intro">
-        <h1>Login to your fintelligent account</h1>
+        <h1>
+          Login to your fintelligent <br /> account
+        </h1>
       </div>
       <div className="login-form">
         <div className="login-text">
           <text>Login</text>
           <h3> Sign in to Continue</h3>
         </div>
+
         <div className="Email">
           <TextField
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             label="Email"
             id="filled-size-normal"
-            style={{ width: 600 }}
+            style={{ width: 400 }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -38,9 +45,11 @@ function Login() {
         </div>
         <div className="Password">
           <TextField
+            required
+            type="password"
             label="Password"
             id="filled-size-normal"
-            style={{ width: 600 }}
+            style={{ width: 400 }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -52,24 +61,40 @@ function Login() {
           />
         </div>
 
-        <button id="loginbtn" type="submit">
-          Login
-        </button>
+        <div className="Login">
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ width: 400, height: 50, borderRadius: 15 }}
+          >
+            Login
+          </Button>
+        </div>
         <text className="text1">Forgot password?</text>
-        <text className="text1">or</text>
 
-        <button id="googlebtn" type="submit">
+        <Button
+          variant="contained"
+          type="submit"
+          style={{
+            width: 400,
+            height: 50,
+            borderRadius: 15,
+            display: "flex",
+            flexDirection: "row",
+            gap: 10,
+          }}
+        >
           <GoogleIcon />
-          <text>Sign In with Google</text>
-        </button>
+          Signin with google
+        </Button>
         <text className="text1">
-          Not having an account?{" "}
+          Not having an account?
           <span className="signin">
-            <Link to="/singup">Sign Up </Link>
+            <Link to="/Signup">Sign Up </Link>
           </span>
         </text>
       </div>
-    </div>
+    </form>
   );
 }
 
