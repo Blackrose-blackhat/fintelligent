@@ -47,13 +47,13 @@ function Login() {
 
         <div className="Email">
           <TextField
+            style={{ width: "20vw" }}
             required
             onChange={(event) =>
               setValues((prev) => ({ ...prev, email: event.target.value }))
             }
             label="Email"
             id="filled-size-normal"
-            style={{ width: 400 }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -66,6 +66,7 @@ function Login() {
         </div>
         <div className="Password">
           <TextField
+            style={{ width: "20vw" }}
             required
             type="password"
             onChange={(event) =>
@@ -73,7 +74,6 @@ function Login() {
             }
             label="Password"
             id="filled-size-normal"
-            style={{ width: 400 }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -89,7 +89,7 @@ function Login() {
           <Button
             onClick={click}
             variant="contained"
-            style={{ width: 400, height: 50, borderRadius: 15 }}
+            style={{ width: "20vw", height: 50, borderRadius: 15 }}
           >
             Login
           </Button>
@@ -100,7 +100,7 @@ function Login() {
           variant="contained"
           type="submit"
           style={{
-            width: 400,
+            width: "20vw",
             height: 50,
             borderRadius: 15,
             display: "flex",

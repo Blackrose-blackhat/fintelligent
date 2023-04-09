@@ -1,10 +1,26 @@
+import { Button } from "@mui/material";
+import React from "react";
+import "./home.css";
+import { Navigate, Link, useNavigate } from "react-router-dom";
+function Home() {
+  let navigate = useNavigate();
+  const click = () => {
+    navigate("/Login");
+  };
+  const click2 = () => {
+    navigate("Signup");
+  };
 
-import React from 'react';
-import './home.css';
-function home() {
   return (
-    <div>Home Page</div>
-  )
+    <div className="home">
+      <Button variant="contained" onClick={click}>
+        Login
+      </Button>
+      <Button variant="contained" onClick={click2}>
+        Signup
+      </Button>
+    </div>
+  );
 }
 
-export default home
+export default Home;
