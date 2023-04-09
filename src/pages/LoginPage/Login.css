@@ -1,92 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
-.login-page
-{
-    background-image: linear-gradient(to right,rgb(45, 177, 229),rgb(0, 140, 255),blue);
-    height: 100vh; 
-    background-position:center;
-    background-repeat: no-repeat;
-    background-size: cover;
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap");
+.login-page {
+  background-image: linear-gradient(
+    to right,
+    rgb(45, 177, 229),
+    rgb(0, 140, 255),
+    blue
+  );
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
 }
-.intro h1{
-    padding-left: 2vw;
-    margin: 0;
-    position: absolute;
-    top: 30%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    font-size:4vw;
-    color: white;
-    font-family: 'Exo 2', sans-serif;
-
+.intro h1 {
+  padding-left: 2vw;
+  margin: 0;
+  position: absolute;
+  top: 20%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 4vw;
+  color: white;
+  font-family: "Exo 2", sans-serif;
 }
-.intro{
-    width: 2px;
+.intro {
+  width: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
 }
-.login-form{
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1vw;
-    gap: 2vw;
-    width: 40vw;
-    background-color: white;
-    margin-left: 60%;
-    margin-top: 7%;
-    height: 74vh;
-    border-top-left-radius: 5vw;
-    border-bottom-left-radius: 5vw;
+.login-form {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vw;
+  gap: 2vw;
+  width: 40vw;
+  background-color: white;
+  margin-left: 60%;
+  margin-top: 7%;
+  height: 74vh;
+  border-top-left-radius: 5vw;
+  border-bottom-left-radius: 5vw;
 }
-.login-text text{
-    display: contents;
-    font-size:3.3vw;
-    font-family: 'Exo 2', sans-serif;
+.login-text text {
+  display: contents;
+  font-size: 3.3vw;
+  font-family: "Exo 2", sans-serif;
 }
-.login-text h3
-{
-    font-size: 1vw;
-    font-weight: 200;
+.login-text h3 {
+  font-size: 1vw;
+  font-weight: 200;
 }
-.login-form .row1
-{
-    margin-top: 5%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 7vw;
+.login-form .row1 {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 7vw;
 }
 #loginbtn {
-   background-color: #004aad;
-   width: 12vw;
-   max-width: 17vw;
-   border-radius: 1vw;
-   border: none;
-   height: 6vh;
-   color:white;
-    font-size: 1.2rem;
-    cursor: pointer;
+  background-color: #004aad;
+  width: 12vw;
+  max-width: 17vw;
+  border-radius: 1vw;
+  border: none;
+  height: 6vh;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
-.text1{
-    font-size: 1.5rem;
+.text1 {
+  font-size: 1.5rem;
 }
 
-.signin{
-    color: #004aad;
-    text-decoration: none;
+.signin {
+  color: #004aad;
+  text-decoration: none;
 }
 #googlebtn {
-    background-color: #004aad;
-   width: 17vw;
-   max-width: 17vw;
-   border: none;
-   max-height: 30vh;
-   height: 5vh;
-   color:white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    justify-content:center;
-    align-items: center;
-    gap: 40px;
+  background-color: #004aad;
+  width: 17vw;
+  max-width: 17vw;
+  border: none;
+  max-height: 30vh;
+  height: 5vh;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 }
