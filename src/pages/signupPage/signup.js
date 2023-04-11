@@ -11,6 +11,8 @@ import React from "react";
 import "./Signup.css";
 
 function Signup() {
+  const [errormsg, showErrorMsg] = useState("");
+
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -19,7 +21,8 @@ function Signup() {
   });
   const Submission = () => {
     if (values.pass != values.re_pass) {
-      alert("Password doesn't match !");
+      showErrorMsg("Password doesn't match with re-enter password");
+      return;
     } else {
       createUserWithEmailAndPassword(auth, values.email, values.pass)
         .then((res) => {
@@ -122,6 +125,9 @@ function Signup() {
               ),
             }}
           />
+        </div>
+        <div className="error-msg">
+          <p>{errormsg}</p>
         </div>
 
         <div className="SignUpbtn">
