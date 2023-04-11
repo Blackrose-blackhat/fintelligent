@@ -3,6 +3,15 @@ import { AccountCircle } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import GoogleIcon from "@mui/icons-material/Google";
+import {
+  useTheme,
+  useMediaQuery,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -12,6 +21,13 @@ import "./Signup.css";
 
 function Signup() {
   const [errormsg, showErrorMsg] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [values, setValues] = useState({
     name: "",
@@ -27,8 +43,30 @@ function Signup() {
       createUserWithEmailAndPassword(auth, values.email, values.pass)
         .then((res) => {
           console.log(res);
+          setOpen(true);
+          showErrorMsg("Account created sucessfull!");
         })
-        .catch((e) => alert(e));
+        .catch((e) => {
+          console.log(e);
+          if (
+            values.name == "" ||
+            values.email == "" ||
+            values.pass == "" ||
+            values.re_pass == ""
+          ) {
+            setOpen(true);
+            showErrorMsg("Please fill in all Fields !");
+          } else if (e.code == "auth/email-already-in-use") {
+            setOpen(true);
+            showErrorMsg("Email Already in Use!");
+          } else if (e.code == "auth/weak-password") {
+            setOpen(true);
+            showErrorMsg("Password should be at least 6 characters  ");
+          } else if (e.code == "auth/invalid-email") {
+            setOpen(true);
+            showErrorMsg("Please enter a valid email address");
+          }
+        });
     }
   };
 
@@ -55,7 +93,7 @@ function Signup() {
             type="text"
             label="Name"
             id="filled-size-normal"
-            style={{ width: 500 }}
+            style={{ width: "26vw" }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -126,9 +164,6 @@ function Signup() {
             }}
           />
         </div>
-        <div className="error-msg">
-          <p>{errormsg}</p>
-        </div>
 
         <div className="SignUpbtn">
           <Button
@@ -154,6 +189,21 @@ function Signup() {
           <GoogleIcon />
           Signin with google
         </Button>
+        <Dialog
+          style={{ borderRadius: "2vw" }}
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">{errormsg}</DialogTitle>
+          <DialogContent></DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </form>
       <div className="image-logo"></div>
     </div>

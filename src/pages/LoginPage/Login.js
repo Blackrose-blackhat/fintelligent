@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import "./Login.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
@@ -11,6 +17,14 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../services/firebase";
 function Login() {
   const auth = getAuth(app);
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   let navigate = useNavigate();
   const click = async () => {
     await signInWithEmailAndPassword(auth, values.email, values.pass)
@@ -20,7 +34,15 @@ function Login() {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        //wrong password
+
+        if (errorCode == "auth/wrong-password") {
+          {
+            setOpen(true);
+          }
+        }
       });
   };
   const [values, setValues] = useState({
@@ -118,6 +140,23 @@ function Login() {
           </span>
         </text>
       </div>
+      <Dialog
+        style={{ borderRadius: "2vw" }}
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Wrong Password! Please try again or reset password"}
+        </DialogTitle>
+        <DialogContent></DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
