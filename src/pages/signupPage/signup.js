@@ -37,6 +37,7 @@ function Signup() {
   });
   const Submission = () => {
     if (values.pass != values.re_pass) {
+      setOpen(true);
       showErrorMsg("Password doesn't match with re-enter password");
       return;
     } else {
@@ -93,7 +94,7 @@ function Signup() {
             type="text"
             label="Name"
             id="filled-size-normal"
-            style={{ width: "26vw" }}
+            style={{ width: "200%", marginLeft: "-90px" }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -112,7 +113,7 @@ function Signup() {
             }
             label="Email"
             id="filled-size-normal"
-            style={{ width: 500 }}
+            style={{ width: "200%", marginLeft: "-90px" }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -133,7 +134,7 @@ function Signup() {
             type="password"
             label="Password"
             id="filled-size-normal"
-            style={{ width: 500 }}
+            style={{ width: "200%", marginLeft: "-90px" }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -153,7 +154,7 @@ function Signup() {
             type="password"
             label="Re-Enter Password"
             id="filled-size-normal"
-            style={{ width: 500 }}
+            style={{ width: "200%", marginLeft: "-90px" }}
             variant="filled"
             InputProps={{
               startAdornment: (
