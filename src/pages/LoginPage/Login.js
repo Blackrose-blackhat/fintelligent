@@ -69,7 +69,7 @@ function Login() {
 
         <div className="Email">
           <TextField
-            style={{ width: "20vw" }}
+            style={{ width: 400 }}
             required
             onChange={(event) =>
               setValues((prev) => ({ ...prev, email: event.target.value }))
@@ -88,7 +88,7 @@ function Login() {
         </div>
         <div className="Password">
           <TextField
-            style={{ width: "20vw" }}
+            style={{ width: 400 }}
             required
             type="password"
             onChange={(event) =>
@@ -111,7 +111,7 @@ function Login() {
           <Button
             onClick={click}
             variant="contained"
-            style={{ width: "20vw", height: 50, borderRadius: 15 }}
+            style={{ width: 400, height: 50, borderRadius: 15 }}
           >
             Login
           </Button>
@@ -122,11 +122,9 @@ function Login() {
           variant="contained"
           type="submit"
           style={{
-            width: "20vw",
+            width: 400,
             height: 50,
             borderRadius: 15,
-            display: "flex",
-            flexDirection: "row",
             gap: 10,
           }}
         >

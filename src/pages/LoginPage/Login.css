@@ -13,6 +13,7 @@
   background-size: cover;
   display: flex;
   flex-direction: row;
+  gap: 990px;
 }
 
 .email-text {
@@ -25,7 +26,7 @@
   top: 20%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  font-size: 3vw;
+  font-size: 4rem;
   color: white;
   font-family: "Exo 2", sans-serif;
 }
@@ -43,23 +44,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1vw;
   gap: 2vw;
-  width: 40vw;
+  width: 100%;
   background-color: rgb(255, 255, 255);
-  margin-left: 60%;
-  margin-top: 7%;
-  height: 74vh;
-  border-top-left-radius: 5vw;
-  border-bottom-left-radius: 5vw;
+  height: 100vh;
+  justify-content: center;
 }
 .login-text text {
   display: contents;
-  font-size: 3.3vw;
+  font-size: 5rem;
   font-family: "Exo 2", sans-serif;
 }
 .login-text h3 {
-  font-size: 1vw;
+  font-size: 1rem;
   font-weight: 200;
 }
 .login-form .row1 {
@@ -110,9 +107,13 @@
   }
   .login-page {
     display: flex;
+    flex-direction: row;
+    height: 100vh;
+    gap: 20px;
+  }
+  .login-form {
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    float: none !important;
   }
 }

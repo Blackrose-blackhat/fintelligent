@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth} from "firebase/auth"
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyCdP_6o2ORt6sSKG1JPaOijqXi8ACAqEeQ",
   authDomain: "fintelligent-adfce.firebaseapp.com",
@@ -8,11 +8,22 @@ const firebaseConfig = {
   storageBucket: "fintelligent-adfce.appspot.com",
   messagingSenderId: "634779553599",
   appId: "1:634779553599:web:37d5bdcdbb255ec456cd8a",
-  measurementId: "G-DN2SBNJNQ7"
+  measurementId: "G-DN2SBNJNQ7",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
-export {app,auth};
+const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export { app, auth, signInWithGoogle };

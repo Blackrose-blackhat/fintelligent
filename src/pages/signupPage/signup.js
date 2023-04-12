@@ -1,9 +1,12 @@
-import { TextField, InputAdornment, Button } from "@mui/material";
+import { TextField, InputAdornment, Button, Box } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import GoogleIcon from "@mui/icons-material/Google";
+import logo from "./../../assets/images/logo.jpg";
+import googleLogo from "./../../assets/images/google_logo.png";
 import {
+  Avatar,
   useTheme,
   useMediaQuery,
   Dialog,
@@ -11,6 +14,7 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
+import { signInWithGoogle } from "../../services/firebase";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -18,6 +22,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import React from "react";
 import "./Signup.css";
+import { height } from "@mui/system";
 
 function Signup() {
   const [errormsg, showErrorMsg] = useState("");
@@ -27,6 +32,9 @@ function Signup() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const style = () => {
+    "@media screen";
   };
 
   const [values, setValues] = useState({
@@ -73,10 +81,24 @@ function Signup() {
 
   return (
     <div className="signup-page">
-      <form className="signup-form" onSubmit={Submission}>
+      <form
+        className="signup-form"
+        sx={{
+          "& > :not(style)": { m: 1 },
+        }}
+      >
+        <Avatar
+          alt="Remy Sharp"
+          src={logo}
+          style={{ zIndex: 2, marginLeft: 20 }}
+          sx={{ width: 84, height: 84, marginTop: 3 }}
+        />
         <div className="text1">
           <h1>Create new account</h1>
         </div>
+
+        <img src={logo} className="App-logo" alt="logo" />
+
         <div className="text2">
           <p>
             Already Registered ?{" "}
@@ -94,7 +116,7 @@ function Signup() {
             type="text"
             label="Name"
             id="filled-size-normal"
-            style={{ width: "200%", marginLeft: "-90px" }}
+            style={{ width: 400 }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -113,7 +135,9 @@ function Signup() {
             }
             label="Email"
             id="filled-size-normal"
-            style={{ width: "200%", marginLeft: "-90px" }}
+            style={{
+              width: 400,
+            }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -134,7 +158,11 @@ function Signup() {
             type="password"
             label="Password"
             id="filled-size-normal"
-            style={{ width: "200%", marginLeft: "-90px" }}
+            style={{
+              width: 400,
+
+              textAlign: "center",
+            }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -154,7 +182,7 @@ function Signup() {
             type="password"
             label="Re-Enter Password"
             id="filled-size-normal"
-            style={{ width: "200%", marginLeft: "-90px" }}
+            style={{ width: 400 }}
             variant="filled"
             InputProps={{
               startAdornment: (
@@ -177,17 +205,21 @@ function Signup() {
         </div>
 
         <Button
+          onClick={signInWithGoogle}
           variant="contained"
           style={{
+            boxShadow: "20px ",
+            backgroundColor: "whitesmoke",
+            color: "black",
             width: 400,
-            height: 50,
+            height: 70,
             borderRadius: 15,
             display: "flex",
             flexDirection: "row",
             gap: 10,
           }}
         >
-          <GoogleIcon />
+          <img src={googleLogo} style={{ height: 30, width: 30 }} />
           Signin with google
         </Button>
         <Dialog
@@ -206,6 +238,11 @@ function Signup() {
           </DialogActions>
         </Dialog>
       </form>
+
+      <div className="error-screen">
+        <h1>Screen too short open on Desktop </h1>
+      </div>
+
       <div className="image-logo"></div>
     </div>
   );
