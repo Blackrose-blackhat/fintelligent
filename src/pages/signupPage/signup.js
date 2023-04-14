@@ -2,9 +2,9 @@ import { TextField, InputAdornment, Button, Box } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
-import GoogleIcon from "@mui/icons-material/Google";
 import logo from "./../../assets/images/logo.jpg";
 import googleLogo from "./../../assets/images/google_logo.png";
+import ImageCarousel from "../../components/carousel/carousel";
 import {
   Avatar,
   useTheme,
@@ -22,7 +22,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import React from "react";
 import "./Signup.css";
-import { height } from "@mui/system";
 
 function Signup() {
   const [errormsg, showErrorMsg] = useState("");
@@ -96,8 +95,6 @@ function Signup() {
         <div className="text1">
           <h1>Create new account</h1>
         </div>
-
-        <img src={logo} className="App-logo" alt="logo" />
 
         <div className="text2">
           <p>
@@ -238,12 +235,9 @@ function Signup() {
           </DialogActions>
         </Dialog>
       </form>
-
-      <div className="error-screen">
-        <h1>Screen too short open on Desktop </h1>
+      <div className="carousel">
+        <ImageCarousel />
       </div>
-
-      <div className="image-logo"></div>
     </div>
   );
 }

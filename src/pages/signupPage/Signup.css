@@ -5,21 +5,10 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  gap: 0px;
 }
-.image-logo {
-  background-image: url(/src/assets/images/logo.jpg);
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  image-rendering: auto;
-}
-.signup-form {
-  max-width: fit-content;
 
-  height: 95vh;
-  max-width: 80vw;
+.signup-form {
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -29,6 +18,7 @@
   opacity: 3;
   background-color: rgba(255, 255, 255, 0.672);
   z-index: 1;
+  scale: 1.02;
 }
 .signup-form .text1 {
   font-size: 1.5rem;
@@ -43,14 +33,11 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .image-logo {
-    display: none;
-  }
   .signup-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2px;
+    gap: 11px;
   }
   .App-logo {
     display: flex;
@@ -64,6 +51,9 @@
     flex-direction: row;
     height: 100vh;
     gap: 5px;
+  }
+  .carousel {
+    display: none !important;
   }
 }
 @media only screen and (max-height: 880px) {
@@ -82,4 +72,23 @@
   height: 70px;
   width: 70px;
   border-radius: 50%;
+}
+.carousel {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  padding-bottom: 0vw !important;
+  background-color: white;
+  margin-top: -0.5%;
+}
+.carousel img {
+  height: 97vh;
+  background-size: cover;
+  image-rendering: pixelated;
+  border-top-left-radius: 36px;
+  border-bottom-right-radius: 36px;
 }

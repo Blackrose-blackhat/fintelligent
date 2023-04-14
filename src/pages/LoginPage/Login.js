@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Avatar } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { signInWithGoogle } from "../../services/firebase";
+
 import "./Login.css";
+import logo from "../../assets/images/logo.jpg";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,11 +13,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import GoogleIcon from "@mui/icons-material/Google";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import logo from "./assets/cyber.png";
+import { Link, useNavigate } from "react-router-dom";
+import googleLogo from "../../assets/images/google_logo.png";
+
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../services/firebase";
+import ImageCarousel from "../../components/carousel/carousel";
 function Login() {
   const auth = getAuth(app);
   const [open, setOpen] = React.useState(false);
@@ -52,18 +56,21 @@ function Login() {
   return (
     <div className="login-page">
       <div className="intro">
-        <div className="intro-text">
-          <h1>
-            Login to your fintelligent <br /> account
-          </h1>
-        </div>
         <div className="animated-gif">
-          <img src={logo} alt="animated"></img>
+          <ImageCarousel />
         </div>
       </div>
       <div className="login-form">
         <div className="login-text">
-          <text>Login</text>
+          <div className="log">
+            <Avatar
+              alt="Remy Sharp"
+              src={logo}
+              style={{ zIndex: 2, marginLeft: 20 }}
+              sx={{ width: 84, height: 84 }}
+            />
+            <text>Login</text>
+          </div>
           <h3> Sign in to Continue</h3>
         </div>
 
@@ -117,20 +124,24 @@ function Login() {
           </Button>
         </div>
         <text className="text1">Forgot password?</text>
+        <text className="text1"> or</text>
 
         <Button
+          onClick={signInWithGoogle}
           variant="contained"
-          type="submit"
           style={{
+            backgroundColor: "whitesmoke",
+            color: "black",
             width: 400,
             height: 50,
             borderRadius: 15,
             gap: 10,
           }}
         >
-          <GoogleIcon />
+          <img src={googleLogo} style={{ height: 30, width: 30 }} />
           Signin with google
         </Button>
+
         <text className="text1">
           Not having an account?
           <span className="signin">
