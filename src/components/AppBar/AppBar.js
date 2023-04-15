@@ -1,11 +1,11 @@
 import * as React from "react";
+import logo from "../../assets/images/logo.jpg";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,6 +17,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@mui/icons-material";
+import "./AppBar.css";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -116,7 +117,7 @@ export default function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: "lightblue" }}>
         <Toolbar>
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
@@ -136,24 +137,32 @@ export default function NavBar() {
               </React.Fragment>
             )}
           </PopupState>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+
+          <div className="logo">
+            <div className="logo-image">
+              <img src={logo}></img>
+            </div>
+            <div className="logo-text">FINTELLIGENT</div>
+          </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton onClick={navtosignup} size="large" color="inherit">
-              <PersonAddAlt1Icon />
-              <p style={{ fontSize: "1rem" }}>Signup</p>
+            <IconButton
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={navtosignup}
+              size="large"
+              color="black"
+            >
+              <PersonAddAlt1Icon style={{ fontSize: "2rem" }} />
+              <p style={{ fontSize: "1rem", color: "black" }}>Signup</p>
             </IconButton>
-            <IconButton size="medium" color="inherit" onClick={navtologin}>
+            <IconButton size="medium" color="black" onClick={navtologin}>
               <LoginOutlined />
-              <p style={{ fontSize: "1rem" }}>Login</p>
+              <p style={{ fontSize: "1rem", color: "black" }}>Login</p>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -163,7 +172,7 @@ export default function NavBar() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="black"
             >
               <MoreIcon />
             </IconButton>

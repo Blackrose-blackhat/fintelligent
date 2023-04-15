@@ -5,6 +5,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import logo from "./../../assets/images/logo.jpg";
 import googleLogo from "./../../assets/images/google_logo.png";
 import ImageCarousel from "../../components/carousel/carousel";
+import { signInWithPopup } from "firebase/auth";
+import { provider } from "../../services/firebase.js";
 import {
   Avatar,
   useTheme,
@@ -14,7 +16,6 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { signInWithGoogle } from "../../services/firebase";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -32,6 +33,7 @@ function Signup() {
   const handleClose = () => {
     setOpen(false);
   };
+  const [isAuth, setIsAuth] = useState(false);
 
   const [values, setValues] = useState({
     name: "",
@@ -73,6 +75,17 @@ function Signup() {
           }
         });
     }
+  };
+  const signInWithGoogle = (setAuth) => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        localStorage.setItem("isAuth", true);
+        setAuth(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
