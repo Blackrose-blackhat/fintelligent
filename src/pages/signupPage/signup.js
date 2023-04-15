@@ -32,9 +32,6 @@ function Signup() {
   const handleClose = () => {
     setOpen(false);
   };
-  const style = () => {
-    "@media screen";
-  };
 
   const [values, setValues] = useState({
     name: "",

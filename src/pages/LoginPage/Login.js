@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, Avatar } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { signInWithGoogle } from "../../services/firebase";
-
+// import { signInWithGoogle } from "../../services/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import "./Login.css";
+
 import logo from "../../assets/images/logo.jpg";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -19,8 +20,10 @@ import googleLogo from "../../assets/images/google_logo.png";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../services/firebase";
 import ImageCarousel from "../../components/carousel/carousel";
-function Login() {
+function Login({ setIsAuth }) {
   const auth = getAuth(app);
+  const [errormsg, showErrorMsg] = useState("");
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -28,6 +31,7 @@ function Login() {
   const handleClose = () => {
     setOpen(false);
   };
+  const provider = new GoogleAuthProvider();
 
   let navigate = useNavigate();
   const click = async () => {
@@ -38,15 +42,30 @@ function Login() {
         navigate("/");
       })
       .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
         //wrong password
-
-        if (errorCode == "auth/wrong-password") {
+        if (values.name == "" || values.pass == "") {
+          setOpen(true);
+          showErrorMsg("Please Fill in all Fields");
+        } else if (error.code == "auth/wrong-password") {
           {
             setOpen(true);
+            showErrorMsg("Invalid Password");
           }
+        } else if (error.code == "auth/invalid-email") {
+          setOpen(true);
+          showErrorMsg("Invalid email");
         }
+        //empty fields
+      });
+  };
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        localStorage.setItem("isAuth", true);
+        setIsAuth(true);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
   const [values, setValues] = useState({
@@ -156,9 +175,7 @@ function Login() {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Wrong Password! Please try again or reset password"}
-        </DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{errormsg}</DialogTitle>
         <DialogContent></DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>

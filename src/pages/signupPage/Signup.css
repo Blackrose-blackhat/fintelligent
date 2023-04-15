@@ -1,10 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap");
 
 .signup-page {
-  background-color: whitesmoke;
+  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: row;
   height: 100vh;
+  gap: 10px;
 }
 
 .signup-form {
@@ -18,7 +19,6 @@
   opacity: 3;
   background-color: rgba(255, 255, 255, 0.672);
   z-index: 1;
-  scale: 1.02;
 }
 .signup-form .text1 {
   font-size: 1.5rem;
@@ -64,9 +64,7 @@
     margin-top: 5px;
   }
 }
-.error-screen h1 {
-  display: none;
-}
+
 .App-logo {
   display: none;
   height: 70px;
@@ -76,19 +74,10 @@
 .carousel {
   height: 100vh;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4px;
-  padding-bottom: 0vw !important;
   background-color: white;
-  margin-top: -0.5%;
 }
 .carousel img {
-  height: 97vh;
+  height: 100vh;
   background-size: cover;
   image-rendering: pixelated;
-  border-top-left-radius: 36px;
-  border-bottom-right-radius: 36px;
 }

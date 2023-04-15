@@ -36,22 +36,18 @@
 }
 .intro {
   width: 145%;
-  height: 96vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 .animated-gif img {
-  height: 97vh;
+  height: 100vh;
   background-size: cover;
   image-rendering: pixelated;
-  border-bottom-left-radius: 36px;
-  border-top-right-radius: 36px;
 }
 .animated-gif {
-  padding: 10px;
   padding-bottom: 0vw !important;
   background-color: white;
-  margin-top: -1%;
 }
 .login-form {
   display: flex;
