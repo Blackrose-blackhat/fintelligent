@@ -23,12 +23,12 @@ function Home() {
               1000,
               "Stay Curious About Global Market News",
               1000,
-              "Stay Curious About Investement and retirement plans",
+              "Stay Curious About Investement and Retirement Plans",
               1000,
             ]}
             speed={50}
             cursor={false}
-            style={{ fontSize: "4rem", fontFamily: "serif" }}
+            style={{ fontSize: "4rem", fontFamily: "serif",textAlign:"left" }}
             repeat={Infinity}
           />
           <h3>Some quotes here</h3>

@@ -7,6 +7,7 @@ import googleLogo from "./../../assets/images/google_logo.png";
 import ImageCarousel from "../../components/carousel/carousel";
 import { signInWithPopup } from "firebase/auth";
 import { provider } from "../../services/firebase.js";
+import { db } from "../../services/firebase.js";
 import {
   Avatar,
   useTheme,
@@ -18,11 +19,12 @@ import {
 } from "@mui/material";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import React from "react";
 import "./Signup.css";
+import { addDoc, collection } from "firebase/firestore";
 
 function Signup() {
   const [errormsg, showErrorMsg] = useState("");
@@ -41,13 +43,28 @@ function Signup() {
     pass: "",
     re_pass: "",
   });
-  const Submission = () => {
+  const Submission = async () => {
     if (values.pass != values.re_pass) {
       setOpen(true);
       showErrorMsg("Password doesn't match with re-enter password");
       return;
     } else {
-      createUserWithEmailAndPassword(auth, values.email, values.pass)
+      try {
+        const docRef = await addDoc(collection(db, "users"), {
+          username: values.name,
+          password: values.pass,
+          email: values.email,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.log(e);
+      }
+      await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.pass,
+        values.name
+      )
         .then((res) => {
           console.log(res);
           setOpen(true);
@@ -97,7 +114,7 @@ function Signup() {
         }}
       >
         <Avatar
-          alt="Remy Sharp"
+          alt="Fintelligent"
           src={logo}
           style={{ zIndex: 2, marginLeft: 20 }}
           sx={{ width: 84, height: 84, marginTop: 3 }}
