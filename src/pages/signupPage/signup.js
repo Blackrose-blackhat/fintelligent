@@ -18,7 +18,7 @@ import {
   DialogActions,
 } from "@mui/material";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
@@ -27,6 +27,7 @@ import "./Signup.css";
 import { addDoc, collection } from "firebase/firestore";
 
 function Signup() {
+  let navigate = useNavigate();
   const [errormsg, showErrorMsg] = useState("");
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -49,16 +50,6 @@ function Signup() {
       showErrorMsg("Password doesn't match with re-enter password");
       return;
     } else {
-      try {
-        const docRef = await addDoc(collection(db, "users"), {
-          username: values.name,
-          password: values.pass,
-          email: values.email,
-        });
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.log(e);
-      }
       await createUserWithEmailAndPassword(
         auth,
         values.email,
@@ -98,10 +89,13 @@ function Signup() {
       .then((result) => {
         console.log(result);
         localStorage.setItem("isAuth", true);
-        setAuth(true);
+        setIsAuth(true);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
+        localStorage.setItem("isAuth", false);
+        setIsAuth(false);
       });
   };
 

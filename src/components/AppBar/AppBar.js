@@ -107,7 +107,7 @@ export default function NavBar() {
         <p>Signup</p>
       </MenuItem>
       <MenuItem>
-        <IconButton size="medium" color="inherit" onClick={navtologin}>
+        <IconButton size="medium" color="white" onClick={navtologin}>
           <LoginIcon />
         </IconButton>
         <p>Login</p>
@@ -117,7 +117,7 @@ export default function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "lightblue" }}>
+      <AppBar position="static" style={{ backgroundColor: "#0A2A3C" }}>
         <Toolbar>
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
@@ -155,14 +155,14 @@ export default function NavBar() {
               }}
               onClick={navtosignup}
               size="large"
-              color="black"
+              color="white"
             >
-              <PersonAddAlt1Icon style={{ fontSize: "2rem" }} />
-              <p style={{ fontSize: "1rem", color: "black" }}>Signup</p>
+              <PersonAddAlt1Icon style={{ fontSize: "2rem", color: "white" }} />
+              <p style={{ fontSize: "1rem", color: "white" }}>Signup</p>
             </IconButton>
-            <IconButton size="medium" color="black" onClick={navtologin}>
+            <IconButton size="medium" color="white" onClick={navtologin}>
               <LoginOutlined />
-              <p style={{ fontSize: "1rem", color: "black" }}>Login</p>
+              <p style={{ fontSize: "1rem", color: "white" }}>Login</p>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -172,9 +172,9 @@ export default function NavBar() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="black"
+              color="white"
             >
-              <MoreIcon />
+              <MoreIcon style={{ color: "white" }} />
             </IconButton>
           </Box>
         </Toolbar>
