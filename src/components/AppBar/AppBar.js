@@ -161,7 +161,7 @@ export default function NavBar() {
               <p style={{ fontSize: "1rem", color: "white" }}>Signup</p>
             </IconButton>
             <IconButton size="medium" color="white" onClick={navtologin}>
-              <LoginOutlined />
+              <LoginOutlined style={{ fontSize: "2rem", color: "white" }} />
               <p style={{ fontSize: "1rem", color: "white" }}>Login</p>
             </IconButton>
           </Box>

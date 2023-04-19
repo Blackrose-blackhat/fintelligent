@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { TextField, Button, Avatar } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-// import { signInWithGoogle } from "../../services/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAuth,
+  deleteUser,
+} from "firebase/auth";
 import "./Login.css";
 
 import logo from "../../assets/images/logo.jpg";
@@ -17,10 +21,13 @@ import LockIcon from "@mui/icons-material/Lock";
 import { Link, useNavigate } from "react-router-dom";
 import googleLogo from "../../assets/images/google_logo.png";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAdditionalUserInfo,
+} from "firebase/auth";
 import { app } from "../../services/firebase";
 import ImageCarousel from "../../components/carousel/carousel";
-function Login({ setIsAuth }) {
+function Login() {
   const auth = getAuth(app);
   const [errormsg, showErrorMsg] = useState("");
 
@@ -61,8 +68,24 @@ function Login({ setIsAuth }) {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        localStorage.setItem("isAuth", true);
-        setIsAuth(true);
+        const { isNewUser } = getAdditionalUserInfo(result);
+        if (isNewUser) {
+          localStorage.getItem("isAuth", false);
+          setOpen(true);
+          showErrorMsg("Account does not Exist !");
+          const user = auth.currentUser;
+          user
+            .delete()
+            .then(() => {
+              console.log("deleted");
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        } else {
+          localStorage.getItem("isAuth", true);
+          navigate("/");
+        }
       })
       .catch((error) => {
         console.log(error);
