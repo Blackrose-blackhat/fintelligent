@@ -2,7 +2,9 @@ import React from "react";
 import "./home.css";
 import NavBar from "../../components/AppBar/AppBar";
 import { TypeAnimation } from "react-type-animation";
+import { auth } from "../../services/firebase";
 function Home() {
+  const user = auth.currentUser;
   return (
     <div className="home">
       <div className="navbar">
@@ -12,7 +14,6 @@ function Home() {
         <div className="bg-text">
           <TypeAnimation
             sequence={[
-              // Same String at the start will only be typed once, initially
               "Stay Curious About Fianance",
               1000,
               "Stay Curious About Insaurance",
@@ -28,7 +29,7 @@ function Home() {
             ]}
             speed={50}
             cursor={false}
-            style={{ fontSize: "4rem", fontFamily: "serif",textAlign:"left" }}
+            style={{ fontSize: "4rem", fontFamily: "serif", textAlign: "left" }}
             repeat={Infinity}
           />
           <h3>Some quotes here</h3>

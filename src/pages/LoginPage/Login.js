@@ -27,7 +27,7 @@ import {
 } from "firebase/auth";
 import { app } from "../../services/firebase";
 import ImageCarousel from "../../components/carousel/carousel";
-function Login() {
+function Login({ setIsAuth }) {
   const auth = getAuth(app);
   const [errormsg, showErrorMsg] = useState("");
 
@@ -39,14 +39,18 @@ function Login() {
     setOpen(false);
   };
   const provider = new GoogleAuthProvider();
-
+  var user = auth.currentUser;
   let navigate = useNavigate();
   const click = async () => {
     await signInWithEmailAndPassword(auth, values.email, values.pass)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("login successfull");
-        navigate("/");
+        var user = auth.currentUser;
+        if (user != null) {
+          console.log("login successfull");
+          navigate("/");
+        } else {
+          showErrorMsg("Some internal error occured");
+        }
       })
       .catch((error) => {
         //wrong password
@@ -70,7 +74,7 @@ function Login() {
       .then((result) => {
         const { isNewUser } = getAdditionalUserInfo(result);
         if (isNewUser) {
-          localStorage.getItem("isAuth", false);
+          localStorage.setItem("isAuth", false);
           setOpen(true);
           showErrorMsg("Account does not Exist !");
           const user = auth.currentUser;
@@ -82,8 +86,10 @@ function Login() {
             .catch((e) => {
               console.log(e);
             });
-        } else {
-          localStorage.getItem("isAuth", true);
+        } else if (!isNewUser) {
+          console.log("Login successfull");
+          localStorage.setItem("isAuth", true);
+
           navigate("/");
         }
       })

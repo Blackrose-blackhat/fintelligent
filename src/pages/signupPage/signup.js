@@ -84,13 +84,14 @@ function Signup() {
         });
     }
   };
-  const signInWithGoogle = (setAuth) => {
+  const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
         localStorage.setItem("isAuth", true);
         setIsAuth(true);
-        navigate("/");
+        setOpen(true);
+        showErrorMsg("Account Created Successfull! redirecting to login page");
       })
       .catch((error) => {
         console.log(error);

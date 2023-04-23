@@ -11,13 +11,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import Avatar from "@mui/material/Avatar";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import LoginIcon from "@mui/icons-material/Login";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@mui/icons-material";
 import "./AppBar.css";
+import { auth } from "../../services/firebase.js";
+import { useState } from "react";
+import { signOut } from "firebase/auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,6 +63,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar() {
+  const user = auth.currentUser;
+
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+
   let navigate = useNavigate();
   const navtologin = () => {
     navigate("/Login");
@@ -82,7 +89,12 @@ export default function NavBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      navigate("/Login");
+    });
+  };
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -132,12 +144,13 @@ export default function NavBar() {
                 <Menu {...bindMenu(popupState)}>
                   <MenuItem onClick={popupState.close}>Home</MenuItem>
                   <MenuItem onClick={popupState.close}>About Us</MenuItem>
-                  <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                  <MenuItem onClick={(popupState.close, signUserOut)}>
+                    Logout
+                  </MenuItem>
                 </Menu>
               </React.Fragment>
             )}
           </PopupState>
-
           <div className="logo">
             <div className="logo-image">
               <img src={logo}></img>
@@ -145,26 +158,38 @@ export default function NavBar() {
             <div className="logo-text">FINTELLIGENT</div>
           </div>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={navtosignup}
-              size="large"
-              color="white"
-            >
-              <PersonAddAlt1Icon style={{ fontSize: "2rem", color: "white" }} />
-              <p style={{ fontSize: "1rem", color: "white" }}>Signup</p>
-            </IconButton>
-            <IconButton size="medium" color="white" onClick={navtologin}>
-              <LoginOutlined style={{ fontSize: "2rem", color: "white" }} />
-              <p style={{ fontSize: "1rem", color: "white" }}>Login</p>
-            </IconButton>
-          </Box>
+          {!isAuth ? (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onClick={navtosignup}
+                size="large"
+                color="white"
+              >
+                <PersonAddAlt1Icon
+                  style={{ fontSize: "2rem", color: "white" }}
+                />
+                <p style={{ fontSize: "1rem", color: "white" }}>Signup</p>
+              </IconButton>
+              <IconButton size="medium" color="white" onClick={navtologin}>
+                <LoginOutlined style={{ fontSize: "2rem", color: "white" }} />
+                <p style={{ fontSize: "1rem", color: "white" }}>Login</p>
+              </IconButton>
+            </Box>
+          ) : (
+            <Avatar
+              alt={user.displayName}
+              src={`${user.photoURL}`}
+              sx={{ width: 24, height: 24 }}
+            />
+            // <Button onClick={signUserOut}>signout</Button>
+          )}
+
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
