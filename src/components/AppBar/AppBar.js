@@ -61,7 +61,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
+window.onunload = () => {
+  // Clear the local storage
+  window.localStorage.clear();
+};
 export default function NavBar() {
   const user = auth.currentUser;
 
