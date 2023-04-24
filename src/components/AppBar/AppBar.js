@@ -16,12 +16,15 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import LoginIcon from "@mui/icons-material/Login";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
-import { LoginOutlined } from "@mui/icons-material";
+import { LoginOutlined, Person3Rounded } from "@mui/icons-material";
+import SettingsIcon from "@mui/icons-material/Settings";
 import "./AppBar.css";
 import { auth } from "../../services/firebase.js";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
-
+import LogoutIcon from "@mui/icons-material/Logout";
+import HomeSharpIcon from "@mui/icons-material/HomeSharp";
+import GroupsSharpIcon from "@mui/icons-material/GroupsSharp";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -145,10 +148,13 @@ export default function NavBar() {
                   <MenuIcon />
                 </Button>
                 <Menu {...bindMenu(popupState)}>
-                  <MenuItem onClick={popupState.close}>Home</MenuItem>
-                  <MenuItem onClick={popupState.close}>About Us</MenuItem>
-                  <MenuItem onClick={(popupState.close, signUserOut)}>
-                    Logout
+                  <MenuItem onClick={popupState.close}>
+                    {" "}
+                    <HomeSharpIcon /> Home
+                  </MenuItem>
+                  <MenuItem onClick={popupState.close}>
+                    <GroupsSharpIcon />
+                    About Us
                   </MenuItem>
                 </Menu>
               </React.Fragment>
@@ -185,12 +191,37 @@ export default function NavBar() {
               </IconButton>
             </Box>
           ) : (
-            <Avatar
-              alt={user.displayName}
-              src={`${user.photoURL}`}
-              sx={{ width: 24, height: 24 }}
-            />
-            // <Button onClick={signUserOut}>signout</Button>
+            <PopupState variant="popover" popupId="demo-popup-menu">
+              {(popupState) => (
+                <React.Fragment>
+                  <Avatar
+                    alt={user.displayName}
+                    src={`${user.photoURL}`}
+                    sx={{ width: 39, height: 39 }}
+                    {...bindTrigger(popupState)}
+                  />
+                  <Menu {...bindMenu(popupState)}>
+                    <MenuItem onClick={popupState.close}>
+                      <Person3Rounded />
+                      Profile
+                    </MenuItem>
+                    <MenuItem onClick={popupState.close}>
+                      <SettingsIcon />
+                      Settings
+                    </MenuItem>
+                    {isAuth ? (
+                      <MenuItem onClick={(popupState.close, signUserOut)}>
+                        {" "}
+                        <LogoutIcon />
+                        Logout
+                      </MenuItem>
+                    ) : (
+                      <></>
+                    )}
+                  </Menu>
+                </React.Fragment>
+              )}
+            </PopupState>
           )}
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
