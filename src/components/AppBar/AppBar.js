@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -25,45 +25,8 @@ import { signOut } from "firebase/auth";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import GroupsSharpIcon from "@mui/icons-material/GroupsSharp";
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
+import Spacer from "react-spacer";
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
 window.onunload = () => {
   // Clear the local storage
   window.localStorage.clear();
@@ -197,22 +160,25 @@ export default function NavBar() {
                   <Avatar
                     alt={user.displayName}
                     src={`${user.photoURL}`}
-                    sx={{ width: 39, height: 39 }}
+                    sx={{ width: 39, height: 39, cursor: "pointer" }}
                     {...bindTrigger(popupState)}
                   />
                   <Menu {...bindMenu(popupState)}>
                     <MenuItem onClick={popupState.close}>
                       <Person3Rounded />
-                      Profile
+                      <Spacer width={"5px"} />
+                      <Typography> Profile </Typography>
                     </MenuItem>
                     <MenuItem onClick={popupState.close}>
                       <SettingsIcon />
+                      <Spacer width={"5px"} />
                       Settings
                     </MenuItem>
                     {isAuth ? (
                       <MenuItem onClick={(popupState.close, signUserOut)}>
                         {" "}
                         <LogoutIcon />
+                        <Spacer width={"5px"} />
                         Logout
                       </MenuItem>
                     ) : (
