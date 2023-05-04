@@ -41,11 +41,11 @@
 .bg-text h1 {
   font-size: 5rem;
 }
-.card{
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-column-gap: var(--spacing-l);
-  grid-row-gap: var(--spacing-l);
-  max-width: var(--width-container);
-  width: 100%;
+.article-text {
+  font-size: 2.5rem;
+}
+.card {
+  border: none;
+  display: flex;
+  flex-direction: row;
 }

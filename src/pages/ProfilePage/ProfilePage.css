@@ -1,0 +1,13 @@
+.Profile {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  width: 600px;
+  background-color: white;
+}
+
+.header {
+  background-color: blue;
+  height: 10vh;
+  align-items: flex-start;
+}
