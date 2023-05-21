@@ -98,8 +98,8 @@ export default function NavBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#0A2A3C" }}>
+    <Box sx={{ flexGrow: 1, padding: 5 }}>
+      <AppBar position="fixed" style={{ backgroundColor: "#0A2A3C" }}>
         <Toolbar>
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
@@ -177,19 +177,22 @@ export default function NavBar() {
               </StyledModal>
             </div>
           )}
-
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="white"
-            >
-              <MoreIcon style={{ color: "white" }} />
-            </IconButton>
-          </Box>
+          {!isAuth ? (
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="white"
+              >
+                <MoreIcon style={{ color: "white" }} />
+              </IconButton>
+            </Box>
+          ) : (
+            <Box></Box>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -234,10 +237,11 @@ const StyledBackdrop = styled(Backdrop)`
 
 const style = (theme) => ({
   position: "absolute",
-  top: "50%",
+  top: "52%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "70%",
+  height: "87%",
   backgroundColor: theme.palette.mode === "dark" ? "#0A1929" : "white",
   boxShadow: 24,
   padding: "16px 32px 24px 32px",

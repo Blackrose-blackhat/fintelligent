@@ -2,13 +2,12 @@
 .home {
   scroll-behavior: smooth;
 }
-
 .navbar {
   margin-top: -10px;
-  position: fixed;
 }
 
 .home-bg {
+  position: relative;
   background-image: url(../../assets/images/home-bg.jpg);
   height: 90vh;
   background-size: cover;
