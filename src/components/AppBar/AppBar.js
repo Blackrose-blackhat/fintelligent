@@ -59,12 +59,6 @@ export default function NavBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const signUserOut = () => {
-    signOut(auth).then(() => {
-      localStorage.clear();
-      navigate("/Login");
-    });
-  };
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
