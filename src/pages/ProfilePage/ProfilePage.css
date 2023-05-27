@@ -1,17 +1,64 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .header {
   background-size: cover;
-  background-color: darkblue;
+  background-color: rgb(2, 2, 85);
   height: 150px;
-  width: 110%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
   z-index: -1;
+  border-bottom-left-radius: 80%;
+  border-bottom-right-radius: 80%;
+  gap: 30px;
 }
+.header .logo-text {
+  font-family: serif;
+  font-weight: 200;
+  font-size: 1.9vw;
+}
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+}
+.details-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 270px;
+  padding: 4%;
+  gap: 40px;
+}
+.details-text p {
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+.user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
 .sign-out {
   height: 100;
   width: 100;
   color: aqua;
+}
+.profile-links {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

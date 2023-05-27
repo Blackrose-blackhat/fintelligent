@@ -238,5 +238,4 @@ const style = (theme) => ({
   height: "87%",
   backgroundColor: theme.palette.mode === "dark" ? "#0A1929" : "white",
   boxShadow: 24,
-  padding: "16px 32px 24px 32px",
 });
