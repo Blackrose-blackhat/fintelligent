@@ -3,7 +3,7 @@ import "./home.css";
 import NavBar from "../../components/AppBar/AppBar";
 import { TypeAnimation } from "react-type-animation";
 import { auth } from "../../services/firebase";
-
+import { Card, Grid, Text, Link } from "@nextui-org/react";
 import BlogCards from "../../components/blogCards/Cards";
 import { Typography } from "@mui/material";
 function Home() {
@@ -48,6 +48,37 @@ function Home() {
       <div className="card">
         <BlogCards />
         <BlogCards />
+      </div>
+      <div>
+      <Card css={{ p: "$6", mw: "400px" }}>
+      <Card.Header>
+        <Grid.Container css={{ pl: "$2" }}>
+          <Grid xs={8}>
+            <Text h4 css={{ lineHeight: "$xs" }}>
+              Article Title
+            </Text>
+          </Grid>
+          <Grid xs={12}>
+            <Text css={{ color: "$accents8" }}></Text>
+          </Grid>
+        </Grid.Container>
+      </Card.Header>
+      <Card.Body css={{ py: "$2" }}>
+        <Text>
+          Blog Text Here
+        </Text>
+      </Card.Body>
+      <Card.Footer>
+        <Link
+          icon
+          color="primary"
+          target="_blank"
+          href="https://github.com/nextui-org/nextui"
+        >
+          Read More
+        </Link>
+      </Card.Footer>
+    </Card>
       </div>
     </div>
   );
