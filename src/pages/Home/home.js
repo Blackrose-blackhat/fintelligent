@@ -5,6 +5,7 @@ import { TypeAnimation } from "react-type-animation";
 import { auth } from "../../services/firebase";
 import { Card, Grid, Text, Link } from "@nextui-org/react";
 import BlogCards from "../../components/blogCards/Cards";
+import { Typography } from "@mui/material";
 function Home() {
   const user = auth.currentUser;
   return (
@@ -41,7 +42,11 @@ function Home() {
           <h2> Price is what you pay, value is what you get. -Warren Buffet</h2>
         </div>
       </div>
+      <div className="article-text">
+        <p>Latest Articles</p>
+      </div>
       <div className="card">
+        <BlogCards />
         <BlogCards />
       </div>
       <div>

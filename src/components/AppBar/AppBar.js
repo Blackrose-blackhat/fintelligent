@@ -2,10 +2,9 @@ import * as React from "react";
 import logo from "../../assets/images/logo.jpg";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,48 +21,13 @@ import "./AppBar.css";
 import { auth } from "../../services/firebase.js";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
-import LogoutIcon from "@mui/icons-material/Logout";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import GroupsSharpIcon from "@mui/icons-material/GroupsSharp";
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import PropTypes from "prop-types";
+import { Box } from "@mui/system";
+import Modal from "@mui/base/Modal";
+import Fade from "@mui/material/Fade";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 window.onunload = () => {
   // Clear the local storage
   window.localStorage.clear();
@@ -80,10 +44,12 @@ export default function NavBar() {
   const navtosignup = () => {
     navigate("Signup");
   };
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -92,15 +58,7 @@ export default function NavBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const signUserOut = () => {
-    signOut(auth).then(() => {
-      localStorage.clear();
-      navigate("/Login");
-    });
-  };
+
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -134,8 +92,8 @@ export default function NavBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#0A2A3C" }}>
+    <Box sx={{ flexGrow: 1, padding: 5 }}>
+      <AppBar position="fixed" style={{ backgroundColor: "#0A2A3C" }}>
         <Toolbar>
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
@@ -191,54 +149,94 @@ export default function NavBar() {
               </IconButton>
             </Box>
           ) : (
-            <PopupState variant="popover" popupId="demo-popup-menu">
-              {(popupState) => (
-                <React.Fragment>
-                  <Avatar
-                    alt={user.displayName}
-                    src={`${user.photoURL}`}
-                    sx={{ width: 39, height: 39 }}
-                    {...bindTrigger(popupState)}
-                  />
-                  <Menu {...bindMenu(popupState)}>
-                    <MenuItem onClick={popupState.close}>
-                      <Person3Rounded />
-                      Profile
-                    </MenuItem>
-                    <MenuItem onClick={popupState.close}>
-                      <SettingsIcon />
-                      Settings
-                    </MenuItem>
-                    {isAuth ? (
-                      <MenuItem onClick={(popupState.close, signUserOut)}>
-                        {" "}
-                        <LogoutIcon />
-                        Logout
-                      </MenuItem>
-                    ) : (
-                      <></>
-                    )}
-                  </Menu>
-                </React.Fragment>
-              )}
-            </PopupState>
+            <div className="profiler">
+              <div onClick={handleOpen}>
+                <Avatar
+                  alt={user.displayName}
+                  src={`${user.photoURL}`}
+                  sx={{ width: 39, height: 39, cursor: "pointer" }}
+                />
+              </div>
+              <StyledModal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                slots={{ backdrop: StyledBackdrop }}
+              >
+                <Box sx={style}>
+                  <ProfilePage />
+                </Box>
+              </StyledModal>
+            </div>
           )}
-
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="white"
-            >
-              <MoreIcon style={{ color: "white" }} />
-            </IconButton>
-          </Box>
+          {!isAuth ? (
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="white"
+              >
+                <MoreIcon style={{ color: "white" }} />
+              </IconButton>
+            </Box>
+          ) : (
+            <Box></Box>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
     </Box>
   );
 }
+const Backdrop = React.forwardRef((props, ref) => {
+  const { open, ...other } = props;
+  return (
+    <Fade in={open}>
+      <div ref={ref} {...other} />
+    </Fade>
+  );
+});
+
+Backdrop.propTypes = {
+  open: PropTypes.bool,
+};
+
+const StyledModal = styled(Modal)`
+  position: fixed;
+  z-index: 1300;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: -1;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-tap-highlight-color: transparent;
+`;
+
+const style = (theme) => ({
+  position: "absolute",
+  top: "52%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "70%",
+  height: "87%",
+  backgroundColor: theme.palette.mode === "dark" ? "#0A1929" : "white",
+  boxShadow: 24,
+  padding: "16px 32px 24px 32px",
+});
