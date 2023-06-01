@@ -1,7 +1,7 @@
 import React from "react";
 import "../ProfilePage/ProfilePage.css";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../services/firebase";
+import { auth, user } from "../../services/firebase";
 import logo from "../../assets/images/logo.jpg";
 import { getAuth, signOut } from "firebase/auth";
 import TextField from "@mui/material/TextField";
@@ -18,12 +18,11 @@ import {
 } from "@mui/icons-material";
 import InputAdornment from "@mui/material/InputAdornment";
 function ProfilePage() {
-  const user = auth.currentUser;
   let navigate = useNavigate();
 
   const signUserOut = () => {
     signOut(auth).then(() => {
-      localStorage.clear();
+      window.sessionStorage.clear();
       navigate("/Login");
     });
   };
@@ -34,9 +33,6 @@ function ProfilePage() {
         <div className="logo-img">
           <img src={logo} style={{ width: 90, borderRadius: 50 }}></img>
         </div>
-        {/* <div onClick={signUserOut} className="sign-out">
-          logout
-        </div> */}
       </div>
       <div className="details">
         <div className="profile-links">
@@ -68,7 +64,7 @@ function ProfilePage() {
             <BookmarkBorder style={{ color: "black" }} />
             Bookmarks
           </IconButton>
-          <IconButton size="large" color="black">
+          <IconButton onClick={signUserOut} size="large" color="black">
             <LogoutOutlined style={{ color: "black" }} />
             Log Out
           </IconButton>

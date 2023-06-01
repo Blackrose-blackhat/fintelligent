@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, Avatar } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  getAuth,
-  deleteUser,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import "./Login.css";
-
+import { user } from "../../services/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import logo from "../../assets/images/logo.jpg";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -25,9 +21,9 @@ import {
   signInWithEmailAndPassword,
   getAdditionalUserInfo,
 } from "firebase/auth";
-import { app } from "../../services/firebase";
+import { app, db } from "../../services/firebase";
 import ImageCarousel from "../../components/carousel/carousel";
-function Login({ setIsAuth }) {
+function Login() {
   const auth = getAuth(app);
   const [errormsg, showErrorMsg] = useState("");
 
@@ -39,12 +35,10 @@ function Login({ setIsAuth }) {
     setOpen(false);
   };
   const provider = new GoogleAuthProvider();
-  var user = auth.currentUser;
   let navigate = useNavigate();
   const click = async () => {
     await signInWithEmailAndPassword(auth, values.email, values.pass)
       .then((userCredential) => {
-        var user = auth.currentUser;
         if (user != null) {
           console.log("login successfull");
           navigate("/");
@@ -69,15 +63,15 @@ function Login({ setIsAuth }) {
         //empty fields
       });
   };
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const { isNewUser } = getAdditionalUserInfo(result);
         if (isNewUser) {
-          localStorage.setItem("isAuth", false);
+          window.sessionStorage.setItem("isAuth", false);
           setOpen(true);
           showErrorMsg("Account does not Exist !");
-          const user = auth.currentUser;
+
           user
             .delete()
             .then(() => {
@@ -87,20 +81,25 @@ function Login({ setIsAuth }) {
               console.log(e);
             });
         } else if (!isNewUser) {
-          console.log("Login successfull");
-          localStorage.setItem("isAuth", true);
-
-          navigate("/");
+          if (user != null) {
+            console.log("Login successfull");
+            window.sessionStorage.setItem("isAuth", true);
+            navigate("/");
+          } else {
+            navigate("/Login");
+          }
         }
       })
       .catch((error) => {
         console.log(error);
       });
+    await setDoc(doc(db, "users"), {});
   };
   const [values, setValues] = useState({
     email: "",
     pass: "",
   });
+
   return (
     <div className="login-page">
       <div className="intro">

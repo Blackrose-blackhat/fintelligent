@@ -5,7 +5,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { Button, Typography } from "@mui/material";
-import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
@@ -16,11 +15,9 @@ import LoginIcon from "@mui/icons-material/Login";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { LoginOutlined, Person3Rounded } from "@mui/icons-material";
-import SettingsIcon from "@mui/icons-material/Settings";
 import "./AppBar.css";
-import { auth } from "../../services/firebase.js";
+import { auth, user } from "../../services/firebase.js";
 import { useState } from "react";
-import { signOut } from "firebase/auth";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import GroupsSharpIcon from "@mui/icons-material/GroupsSharp";
 import PropTypes from "prop-types";
@@ -30,12 +27,11 @@ import Fade from "@mui/material/Fade";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 window.onunload = () => {
   // Clear the local storage
-  window.localStorage.clear();
+  window.sessionStorage.clear();
 };
 export default function NavBar() {
-  const user = auth.currentUser;
-
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const [isAuth, setIsAuth] = useState(sessionStorage.getItem("isAuth"));
+  console.log(isAuth);
 
   let navigate = useNavigate();
   const navtologin = () => {
@@ -125,7 +121,7 @@ export default function NavBar() {
             <div className="logo-text">FINTELLIGENT</div>
           </div>
           <Box sx={{ flexGrow: 1 }} />
-          {!isAuth ? (
+          {!isAuth || user == null ? (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 style={{

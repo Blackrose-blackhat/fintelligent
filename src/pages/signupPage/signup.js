@@ -88,14 +88,14 @@ function Signup() {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
-        localStorage.setItem("isAuth", true);
+        window.sessionStorage.setItem("isAuth", true);
         setIsAuth(true);
         setOpen(true);
         showErrorMsg("Account Created Successfull! redirecting to login page");
       })
       .catch((error) => {
         console.log(error);
-        localStorage.setItem("isAuth", false);
+        window.sessionStorage.setItem("isAuth", false);
         setIsAuth(false);
       });
   };
