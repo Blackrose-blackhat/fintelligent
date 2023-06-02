@@ -1,4 +1,4 @@
-$yellow:#f5bc04;
+$blue:#044cf5;
 
 @mixin border-radius($radius) {
 	-webkit-border-radius: $radius;
@@ -51,8 +51,9 @@ $yellow:#f5bc04;
 	padding-right: 20px!important;
 	margin: 0 20px!important;
 	@include transition(0.5s);
-	background: $yellow!important;
+	background: $blue!important;
 	@include clip-path(polygon(100% 0, 100% 85%, 14% 85%, 0 100%, 0% 60%, 0 0));
+    text-decoration: none !important;
 }
 .navbar-light .navbar-nav .nav-link {
 	color: #222!important;
@@ -64,9 +65,11 @@ $yellow:#f5bc04;
 	@include transition(0.5s);
 	position: relative!important;
 	@include clip-path(polygon(100% 0, 100% 85%, 14% 85%, 0 100%, 0% 60%, 0 0));
+   font-size: 1.3rem;
+   text-decoration: none !important;
 
 	&:focus, &:hover {
-		background: $yellow!important;
+		background: $blue!important;
 		color: #fff!important;
 		padding-top: 12px!important;
 		padding-bottom: 15px!important;
@@ -74,5 +77,7 @@ $yellow:#f5bc04;
 		padding-right: 20px!important;
 		margin: 0 20px;
 		position: relative;
+        text-decoration: none !important;
+        cursor: pointer;
 	}
 }
