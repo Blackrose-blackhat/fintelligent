@@ -1,18 +1,25 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/home";
-import Signup from "./pages/signupPage/signup";
-import Login from "./pages/LoginPage/Login";
-function App({ setIsAuth }) {
+
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+import AddEditblog from "./pages/AddEditblog";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Routes, Route } from "react-router-dom";
+function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="/Login" element={<Login setIsAuth={setIsAuth} />} />
-        </Routes>
-      </Router>
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/details" element={<Detail />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/*" element={<NotFound />} />
+        <Route path="/create" element={<AddEditblog />} />
+        <Route path="/update:id" element={<AddEditblog />} />
+      </Routes>
     </div>
   );
 }
