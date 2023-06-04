@@ -5,7 +5,10 @@ import logo from "../assets/images/logo.jpg";
 const Header = ({ setActive, active }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid bg-faded padding-media">
+      <div
+        className="container-fluid bg-faded padding-media"
+        style={{ backgroundColor: "darkblue", marginTop: -8.2 }}
+      >
         <div className="container padding-media">
           <nav className="navbar navbar-toggleable-md navbar-light">
             <div className="logo">
@@ -26,11 +29,16 @@ const Header = ({ setActive, active }) => {
                     fontWeight: "bolder",
                     letterSpacing: 2,
                     fontSize: 22,
+                    color: "white",
                   }}
                 >
                   FINTELLIGENT
                 </li>
-                <Avatar alt="Fintelligent" src={logo} />
+                <Avatar
+                  alt="Fintelligent"
+                  src={logo}
+                  style={{ height: 50, width: 50 }}
+                />
               </Link>
             </div>
             <button
