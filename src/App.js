@@ -2,6 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import About from "./pages/About";
+import Auth from "./pages/Auth";
 import "./style.scss";
 import "./media-query.css";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/create" element={<AddEditblog />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/update:id" element={<AddEditblog />} />
       </Routes>
     </div>

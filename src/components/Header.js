@@ -7,7 +7,7 @@ const Header = ({ setActive, active }) => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div
         className="container-fluid bg-faded padding-media"
-        style={{ backgroundColor: "darkblue", marginTop: -8.2 }}
+        style={{ backgroundColor: "#0a293b", marginTop: -8.2 }}
       >
         <div className="container padding-media">
           <nav className="navbar navbar-toggleable-md navbar-light">
@@ -87,7 +87,7 @@ const Header = ({ setActive, active }) => {
                     <li
                       onClick={() => setActive("auth")}
                       className={`nav-item nav-link ${
-                        active === "auth" ? "active" : ""
+                        active === "Login" ? "active" : ""
                       }`}
                     >
                       Login

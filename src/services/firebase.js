@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import firestore, { Firestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
+import { FirebaseStorage, getStorage } from "@firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyCdP_6o2ORt6sSKG1JPaOijqXi8ACAqEeQ",
   authDomain: "fintelligent-adfce.firebaseapp.com",
@@ -15,15 +16,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = new Firestore(app);
-const user = auth.onAuthStateChanged(function (user) {
-  if (user != null) {
-    console.log(user);
-    sessionStorage.setItem("isAuth", true);
-  } else {
-    sessionStorage.clear();
-  }
-});
-export { app, auth, provider, db, user };
+const storage = getStorage(app);
+export { app, auth, provider, db, storage };
