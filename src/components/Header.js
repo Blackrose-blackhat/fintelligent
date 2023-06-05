@@ -2,7 +2,10 @@ import { Avatar } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.jpg";
-const Header = ({ setActive, active }) => {
+const Header = ({ setActive, active, user, handleLogOut }) => {
+  const userId = user?.uid;
+  console.log("userId", userId);
+  console.log("name", user?.displayName);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div
@@ -83,16 +86,41 @@ const Header = ({ setActive, active }) => {
               </ul>
               <div className="row g-3">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                  <Link to="/auth" style={{ textDecoration: "none" }}>
-                    <li
-                      onClick={() => setActive("auth")}
-                      className={`nav-item nav-link ${
-                        active === "Login" ? "active" : ""
-                      }`}
-                    >
-                      Login
-                    </li>
-                  </Link>
+                  {userId ? (
+                    <>
+                      <div className="profile-logo">
+                        <Avatar
+                          alt={user?.displayName}
+                          style={{ height: 50, width: 50, marginTop: "12px" }}
+                        />
+                      </div>
+                      <p
+                        style={{
+                          color: "white",
+                          marginTop: "24px",
+                          marginLeft: "19px",
+                        }}
+                      >
+                        {user?.displayName}
+                      </p>
+                      <li className="nav-item nav-link" onClick={handleLogOut}>
+                        logout
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/auth" style={{ textDecoration: "none" }}>
+                        <li
+                          onClick={() => setActive("auth")}
+                          className={`nav-item nav-link ${
+                            active === "Login" ? "active" : ""
+                          }`}
+                        >
+                          Login
+                        </li>
+                      </Link>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>

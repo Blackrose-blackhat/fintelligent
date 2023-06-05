@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import firestore, { Firestore } from "firebase/firestore";
+import { Firestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { Navigate, useNavigate } from "react-router-dom";
-import { FirebaseStorage, getStorage } from "@firebase/storage";
+import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCdP_6o2ORt6sSKG1JPaOijqXi8ACAqEeQ",
   authDomain: "fintelligent-adfce.firebaseapp.com",
