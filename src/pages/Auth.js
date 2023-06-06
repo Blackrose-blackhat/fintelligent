@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import GoogleButton from "react-google-button";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
+  getAdditionalUserInfo,
 } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { auth, provider } from "../services/firebase";
 import { useNavigate } from "react-router-dom";
 const initialState = {
   firstName: "",
@@ -15,7 +18,7 @@ const initialState = {
   confirmPassword: "",
 };
 
-const Auth = ({ setActive }) => {
+const Auth = ({ setActive, setUser }) => {
   let navigate = useNavigate();
   const [state, setState] = useState(initialState);
   const [signup, setSignup] = useState(false);
@@ -67,12 +70,58 @@ const Auth = ({ setActive }) => {
     }
   };
 
+  const googleAuthLogin = async () => {
+    const { user } = await signInWithPopup(auth, provider).then((res) => {
+      const { isNewUser } = getAdditionalUserInfo(res);
+      if (!isNewUser) {
+        navigate("/");
+        toast.success("Login succesfull");
+        setActive("home");
+        setUser(user);
+      } else {
+        const curr_user = auth.currentUser;
+        curr_user
+          .delete()
+          .then(async () => {
+            console.log("deleted");
+            toast.error("Account does not exist");
+            await setUser(null);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    });
+    console.log("login working");
+  };
+  const googleAuthSignUp = async () => {
+    const { user } = await signInWithPopup(auth, provider)
+      .then((res) => {
+        const { isNewUser } = getAdditionalUserInfo(res);
+        if (!isNewUser) {
+          toast.error("User already registered login to continue!");
+          setUser(null);
+          navigate("/auth");
+        } else {
+          // updateProfile(user, { displayName: `${firstName} ${LastName}` });
+          navigate("/");
+          toast.success("Account created succesfully!");
+          setActive("home");
+          setUser(user);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    console.log("working");
+  };
+
   return (
     <div className="container-fluid mb-4">
       <div className="container">
         <div className="col-12 text-center">
           <div className="text-center heading py-2">
-            {!signup ? "Sign-In" : "Sign-Up"}
+            {!signup ? "Login" : "Sign-Up"}
           </div>
         </div>
         <div className="row h-100 justify-content-center align-items-center">
@@ -142,8 +191,31 @@ const Auth = ({ setActive }) => {
                   className={`btn ${!signup ? "btn-sign-in" : "btn-sign-up"}`}
                   type="submit"
                 >
-                  {!signup ? "Sign-In" : "Sign-Up"}
+                  {!signup ? "LogIn" : "Sign-Up"}
                 </button>
+              </div>
+              <div
+                className="col-12 py-3 text-center"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <GoogleButton
+                  type="dark"
+                  label={`${
+                    !signup ? "Login with google" : "Sign-up with google"
+                  }`}
+                  onClick={() => {
+                    if (!signup) {
+                      googleAuthLogin();
+                    } else {
+                      googleAuthSignUp();
+                    }
+                  }}
+                />
               </div>
             </form>
             <div>
@@ -176,7 +248,7 @@ const Auth = ({ setActive }) => {
                         }}
                         onClick={() => setSignup(false)}
                       >
-                        Sign In
+                        Log In
                       </span>
                     </p>
                   </div>

@@ -53,7 +53,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/create" element={<AddEditblog />} />
-        <Route path="/auth" element={<Auth setActive={setActive} />} />
+        <Route
+          path="/auth"
+          element={<Auth setActive={setActive} setUser={setUser} />}
+        />
         <Route path="/update:id" element={<AddEditblog />} />
       </Routes>
     </div>

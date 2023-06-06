@@ -86,7 +86,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
               </ul>
               <div className="row g-3">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                  {userId ? (
+                  {userId && user ? (
                     <>
                       <div className="profile-logo">
                         <Avatar
