@@ -6,6 +6,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
   const userId = user?.uid;
   console.log("userId", userId);
   console.log("name", user?.displayName);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div
@@ -113,7 +114,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
                         <li
                           onClick={() => setActive("auth")}
                           className={`nav-item nav-link ${
-                            active === "Login" ? "active" : ""
+                            active === "auth" ? "active" : ""
                           }`}
                         >
                           Login

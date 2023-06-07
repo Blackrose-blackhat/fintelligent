@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import GoogleButton from "react-google-button";
+import "firebase/firestore";
+import { db } from "../services/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -19,6 +22,7 @@ const initialState = {
 };
 
 const Auth = ({ setActive, setUser }) => {
+  // const firestore = firebase.firestore();
   let navigate = useNavigate();
   const [state, setState] = useState(initialState);
   const [signup, setSignup] = useState(false);
@@ -59,9 +63,16 @@ const Auth = ({ setActive, setUser }) => {
           email,
           password
         );
-        await updateProfile(user, { displayName: `${firstName} ${LastName}` });
 
+        await updateProfile(user, { displayName: `${firstName} ${LastName}` });
+        await setDoc(doc(db, "users", user.uid), {
+          firstName: firstName,
+          LastName: LastName,
+          email: email,
+          password: password,
+        });
         setActive("home");
+
         toast.success("Account created succesfully!");
         navigate("/");
       } else {
@@ -117,7 +128,12 @@ const Auth = ({ setActive, setUser }) => {
   };
 
   return (
-    <div className="container-fluid mb-4">
+    <div
+      className="container-fluid mb-4"
+      style={{
+        marginTop: 90,
+      }}
+    >
       <div className="container">
         <div className="col-12 text-center">
           <div className="text-center heading py-2">

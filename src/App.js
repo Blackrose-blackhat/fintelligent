@@ -12,9 +12,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import { useState, useEffect } from "react";
-import { auth } from "./services/firebase";
+import { auth, db } from "./services/firebase";
 import { signOut } from "firebase/auth";
 function App() {
+  console.log(db);
   let navigate = useNavigate();
   const [active, setActive] = useState("home");
   const [user, setUser] = useState(null);
@@ -55,7 +56,7 @@ function App() {
         <Route path="/create" element={<AddEditblog />} />
         <Route
           path="/auth"
-          element={<Auth setActive={setActive} setUser={setUser} />}
+          element={<Auth setActive={setActive} setUser={setUser} user={user} />}
         />
         <Route path="/update:id" element={<AddEditblog />} />
       </Routes>
