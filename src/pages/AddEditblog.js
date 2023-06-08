@@ -1,7 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import ReactTagInput from "@pathofdev/react-tag-input";
-// import "@pathofdev/react-tag-input/build/index.css";
+import { getDownloadURL, uploadBytesResumable } from "@firebase/storage";
+import "@pathofdev/react-tag-input/build/index.css";
+import { ref } from "@firebase/storage";
+import { storage } from "../services/firebase";
+
 const initialState = {
   title: "",
   description: "",
@@ -24,12 +28,61 @@ const AddEditblog = () => {
   const [form, setForm] = useState(initialState);
   const [file, setFile] = useState(null);
   const { title, tags, category, trending, description } = form;
+  const [progress, setProgress] = useState(null);
 
-  const handleChange = (e) => {};
-  const handleTag = (e) => {};
-  const handleTrending = (e) => {};
-  const oncategoryChange = (e) => {};
+  useEffect(() => {
+    const uploadFile = () => {
+      const storageRef = ref(storage, file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          setProgress(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+            // toast.info("Image upload to firebase successfully");
+            setForm((prev) => ({ ...prev, imgUrl: downloadUrl }));
+          });
+        }
+      );
+    };
 
+    file && uploadFile();
+  }, [file]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleTag = (tags) => {
+    setForm({ ...form, tags });
+  };
+
+  const handleTrending = (e) => {
+    setForm({ ...form, trending: e.target.value });
+  };
+
+  const oncategoryChange = (e) => {
+    setForm({ ...form, category: e.target.value });
+  };
+  const handleSubmit = async (e) => {};
   return (
     <div className="container-fluid mb-4">
       <div className="container">
@@ -38,7 +91,7 @@ const AddEditblog = () => {
         </div>
         <div className="row h-100 justify-content-center align-items-center">
           <div className="col-10 col-md-8 col-lg-6">
-            <form action="" className="row big-form">
+            <form action="" className="row big-form" onSubmit={handleSubmit}>
               <div className="col-12 py-3">
                 <input
                   type="text"
@@ -89,16 +142,14 @@ const AddEditblog = () => {
                 <select
                   value={category}
                   onChange={oncategoryChange}
-                  name=""
-                  id=""
                   className="catg-dropdown"
                 >
-                  <option>Please select category </option>
-                  {categoryOptions.map((option, index) => {
+                  <option>Please select category</option>
+                  {categoryOptions.map((option, index) => (
                     <option value={option || ""} key={index}>
                       {option}
-                    </option>;
-                  })}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -119,6 +170,16 @@ const AddEditblog = () => {
                     setFile(e.target.files[0]);
                   }}
                 ></input>
+              </div>
+
+              <div className="col-12 py-3 text-center">
+                <button
+                  className="btn btn-add"
+                  type="submit"
+                  disabled={progress !== null && progress < 100}
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>
