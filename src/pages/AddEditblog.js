@@ -4,7 +4,10 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import { getDownloadURL, uploadBytesResumable } from "@firebase/storage";
 import "@pathofdev/react-tag-input/build/index.css";
 import { ref } from "@firebase/storage";
-import { storage } from "../services/firebase";
+import { db, storage } from "../services/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const initialState = {
   title: "",
@@ -24,7 +27,8 @@ const categoryOptions = [
   "LifeStyle and Money",
 ];
 
-const AddEditblog = () => {
+const AddEditblog = ({ user }) => {
+  let navigate = useNavigate();
   const [form, setForm] = useState(initialState);
   const [file, setFile] = useState(null);
   const { title, tags, category, trending, description } = form;
@@ -82,7 +86,23 @@ const AddEditblog = () => {
   const oncategoryChange = (e) => {
     setForm({ ...form, category: e.target.value });
   };
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (category && tags && trending && description) {
+      try {
+        await addDoc(collection(db, "blogs"), {
+          ...form,
+          timestamp: serverTimestamp(),
+          author: user?.displayName,
+          Userid: user?.uid,
+        });
+        toast.success("Blog created succesfully");
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   return (
     <div className="container-fluid mb-4">
       <div className="container">

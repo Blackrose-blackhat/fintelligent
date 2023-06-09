@@ -15,7 +15,6 @@ import { useState, useEffect } from "react";
 import { auth, db } from "./services/firebase";
 import { signOut } from "firebase/auth";
 function App() {
-  console.log(db);
   let navigate = useNavigate();
   const [active, setActive] = useState("home");
   const [user, setUser] = useState(null);
@@ -29,6 +28,7 @@ function App() {
       }
     });
   }, []);
+  console.log(user);
 
   const handleLogOut = () => {
     signOut(auth).then(() => {
@@ -53,7 +53,7 @@ function App() {
         <Route path="/details" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path="/create" element={<AddEditblog />} />
+        <Route path="/create" element={<AddEditblog user={user} />} />
         <Route
           path="/auth"
           element={<Auth setActive={setActive} setUser={setUser} user={user} />}
