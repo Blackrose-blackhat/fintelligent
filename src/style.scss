@@ -197,26 +197,32 @@ $aliceblue : #04f5c9;
 	font-size: 24px;
 	color: #222;
     border-bottom: 1px solid #777;
+	
 }
 
 .blogs-img {
-    height: 200px;
+    height: 290px;
 	@include border-radius(5px);
 	overflow: hidden;
 	position: relative;
 	top: 0;
-	@include box-shadow(0, 2px, 3px, 1px, rgba(0,0,0,0));
-	@include transition(all 0.5s);
+	
+	 transition:0.5s ease-in-out;
+	 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .blogs-img > img {
-    height: 260px;
+    height: 290px;
 	min-width: 100%;
+	transition: all 1s ease-in-out;
+	padding: 5px;
+	border-radius: 10px;
 }
 
 .hover-blogs-img:hover > .blogs-img {
-    top: -7px;
-	@include box-shadow(0, 2px, 3px, 1px, rgba(0,0,0,0.3));
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+	cursor: pointer;
 }
 
 .title {

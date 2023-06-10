@@ -1,7 +1,6 @@
-import React from "react";
-
-const index = () => {
-  return <div>index</div>;
+export const excerpt = (str, count) => {
+  if (str.length > count) {
+    str = str.substring(0, count) + "....";
+  }
+  return str;
 };
-
-export default index;

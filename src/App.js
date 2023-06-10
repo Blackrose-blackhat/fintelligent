@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound";
 import AddEditblog from "./pages/AddEditblog";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import { useState, useEffect } from "react";
 import { auth, db } from "./services/firebase";
@@ -49,16 +49,26 @@ function App() {
       />
       <ToastContainer position="top-center" />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/details" element={<Detail />} />
+        <Route path="/" element={<Home setActive={setActive} user={user} />} />
+        <Route path="/details/:id" element={<Detail setActive={setActive} />} />
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path="/create" element={<AddEditblog user={user} />} />
+        <Route
+          path="/create"
+          element={
+            user?.uid ? <AddEditblog user={user} /> : <Navigate to="/" />
+          }
+        />
         <Route
           path="/auth"
           element={<Auth setActive={setActive} setUser={setUser} user={user} />}
         />
-        <Route path="/update:id" element={<AddEditblog />} />
+        <Route
+          path="/update:id"
+          element={
+            user?.uid ? <AddEditblog user={user} /> : <Navigate to="/" />
+          }
+        />
       </Routes>
     </div>
   );
