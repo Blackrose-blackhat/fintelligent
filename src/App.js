@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import { useState, useEffect } from "react";
-import { auth, db } from "./services/firebase";
+import { auth } from "./services/firebase";
 import { signOut } from "firebase/auth";
 function App() {
   let navigate = useNavigate();
@@ -49,7 +49,10 @@ function App() {
       />
       <ToastContainer position="top-center" />
       <Routes>
-        <Route path="/" element={<Home setActive={setActive} user={user} />} />
+        <Route
+          path="/"
+          element={<Home setActive={setActive} user={user} active={active} />}
+        />
         <Route path="/details/:id" element={<Detail setActive={setActive} />} />
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />

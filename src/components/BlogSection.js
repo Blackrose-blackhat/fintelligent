@@ -1,5 +1,4 @@
 import React from "react";
-import FontAwesome from "react-fontawesome";
 import { Link } from "react-router-dom";
 import { excerpt } from "../util";
 
@@ -18,7 +17,7 @@ const BlogSection = ({ blogs, user }) => {
           </div>
           <div className="col-md-7">
             <div className="text-start">
-              <h6 className="catoegory catg-color">{item.category}</h6>
+              <h6 className="category catg-color">{item.category}</h6>
               <span className="title py-2">{item.title}</span>
               <span className="meta-info">
                 <p className="author">{item.author}</p> -&nbsp;
@@ -32,18 +31,6 @@ const BlogSection = ({ blogs, user }) => {
             <Link to={`/details/${item.id}`}>
               <button className="btn btn-read">Read More</button>
             </Link>
-            <div style={{ float: "right" }}>
-              <FontAwesome
-                name="trash"
-                style={{ margin: "15px", cursor: "pointer" }}
-                size="2x"
-              />
-              <FontAwesome
-                name="edit"
-                style={{ cursor: "pointer" }}
-                size="2x"
-              />
-            </div>
           </div>
         </div>
       ))}

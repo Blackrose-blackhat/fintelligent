@@ -8,10 +8,18 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
   console.log("name", user?.displayName);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light"
+      style={{ paddingBottom: 70 }}
+    >
       <div
         className="container-fluid bg-faded padding-media"
-        style={{ backgroundColor: "#0a293b", marginTop: -8.2 }}
+        style={{
+          backgroundColor: "#0a293b",
+          marginTop: 52,
+          position: "fixed",
+          zIndex: 3,
+        }}
       >
         <div className="container padding-media">
           <nav className="navbar navbar-toggleable-md navbar-light">
