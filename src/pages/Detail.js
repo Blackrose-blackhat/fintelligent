@@ -18,6 +18,7 @@ const Detail = ({ setActive }) => {
       const blogs = await getDocs(blogRef);
       setBlogs(blogs.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       let tags = [];
+      // eslint-disable-next-line
       blogs.docs.map((doc) => {
         tags.push(...doc.get("tags"));
       });
@@ -29,6 +30,7 @@ const Detail = ({ setActive }) => {
 
   useEffect(() => {
     id && getBlogDetail();
+    // eslint-disable-next-line
   }, [id]);
 
   const getBlogDetail = async () => {

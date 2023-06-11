@@ -2,10 +2,12 @@ import { Avatar } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.jpg";
+// eslint-disable-next-line
+import transitions from "bootstrap";
 const Header = ({ setActive, active, user, handleLogOut }) => {
   const userId = user?.uid;
-  console.log("userId", userId);
-  console.log("name", user?.displayName);
+  "userId", userId;
+  "name", user?.displayName;
 
   return (
     <nav
@@ -16,9 +18,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
         className="container-fluid bg-faded padding-media"
         style={{
           backgroundColor: "#0a293b",
-          marginTop: 52,
-          position: "fixed",
-          zIndex: 3,
+          marginTop: -10,
         }}
       >
         <div className="container padding-media">

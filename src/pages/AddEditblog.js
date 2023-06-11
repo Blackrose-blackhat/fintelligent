@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import { getDownloadURL, uploadBytesResumable } from "@firebase/storage";
+
 import "@pathofdev/react-tag-input/build/index.css";
 import { ref } from "@firebase/storage";
 import { db, storage } from "../services/firebase";
@@ -35,6 +36,7 @@ const AddEditblog = ({ user }) => {
   const [progress, setProgress] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line
     const uploadFile = () => {
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -43,21 +45,21 @@ const AddEditblog = ({ user }) => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
+          "Upload is " + progress + "% done";
           setProgress(progress);
           switch (snapshot.state) {
             case "paused":
-              console.log("Upload is paused");
+              "Upload is paused";
               break;
             case "running":
-              console.log("Upload is running");
+              "Upload is running";
               break;
             default:
               break;
           }
         },
         (error) => {
-          console.log(error);
+          error;
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
@@ -67,7 +69,7 @@ const AddEditblog = ({ user }) => {
         }
       );
     };
-
+    // eslint-disable-next-line
     file && uploadFile();
   }, [file]);
 
@@ -76,6 +78,7 @@ const AddEditblog = ({ user }) => {
   };
 
   const handleTag = (tags) => {
+    // eslint-disable-next-line
     setForm({ ...form, tags });
   };
 
@@ -99,7 +102,7 @@ const AddEditblog = ({ user }) => {
         toast.success("Blog created succesfully");
         navigate("/");
       } catch (error) {
-        console.log(error);
+        error;
       }
     }
   };
@@ -123,6 +126,9 @@ const AddEditblog = ({ user }) => {
                 ></input>
               </div>
               <div className="col-12 py-3">
+                {
+                  // eslint-disable-next-line
+                }
                 <ReactTagInput
                   tags={tags}
                   placeholder="tags"

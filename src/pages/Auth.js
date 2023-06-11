@@ -94,16 +94,16 @@ const Auth = ({ setActive, setUser }) => {
         curr_user
           .delete()
           .then(async () => {
-            console.log("deleted");
+            ("deleted");
             toast.error("Account does not exist");
             await setUser(null);
           })
           .catch((e) => {
-            console.log(e);
+            e;
           });
       }
     });
-    console.log("login working");
+    ("login working");
   };
   const googleAuthSignUp = async () => {
     const { user } = await signInWithPopup(auth, provider)
@@ -122,9 +122,9 @@ const Auth = ({ setActive, setUser }) => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        e;
       });
-    console.log("working");
+    ("working");
   };
 
   return (

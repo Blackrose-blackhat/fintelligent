@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../services/firebase";
 import BlogSection from "../components/BlogSection";
 import { RingLoader } from "react-spinners";
 import Tags from "../components/Tags";
 import MostPopular from "../components/MostPopular";
+import Trending from "../components/Trending";
 // import Spinner from "../components/spinner";
 const Home = ({ setActive, user, active }) => {
   const [loading, setLoading] = useState(true);
   const [blogs, setBlogs] = useState([]);
   const [tags, setTags] = useState([]);
+  const [trendBlogs, setTrendBlogs] = useState([]);
+
+  const getTrendingBlogs = async () => {
+    const blogRef = collection(db, "blogs");
+    const trendQuery = query(blogRef, where("trending", "==", "yes"));
+    const querySnapshot = await getDocs(trendQuery);
+    let trendBlogs = [];
+    querySnapshot.forEach((doc) => {
+      trendBlogs.push({ id: doc.id, ...doc.data() });
+    });
+    setTrendBlogs(trendBlogs);
+  };
 
   useEffect(() => {
+    getTrendingBlogs();
     const unsub = onSnapshot(
       collection(db, "blogs"),
       (snapshot) => {
@@ -19,7 +39,7 @@ const Home = ({ setActive, user, active }) => {
         let tags = [];
         snapshot.docs.forEach((doc) => {
           tags.push(...doc.get("tags"));
-          console.log(tags);
+          tags;
           list.push({ id: doc.id, ...doc.data() });
         });
         const uniqueTags = [...new Set(tags)];
@@ -29,12 +49,13 @@ const Home = ({ setActive, user, active }) => {
         setActive("home");
       },
       (error) => {
-        console.log(error);
+        error;
       }
     );
 
     return () => {
       unsub();
+      getTrendingBlogs();
     };
   }, [setActive, active]);
 
@@ -54,12 +75,12 @@ const Home = ({ setActive, user, active }) => {
     );
   }
 
-  console.log("blogs", blogs);
+  "blogs", blogs;
   return (
     <div className="container-fluid pb-4 pt-4 padding">
       <div className="container-padding">
         <div className="row mx-0">
-          <h2>Trending</h2>
+          <Trending blogs={trendBlogs} />
           <div className="col-md-8">
             <BlogSection blogs={blogs} user={user} />
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { excerpt } from "../util";
 
-const BlogSection = ({ blogs, user }) => {
+const BlogSection = ({ blogs }) => {
   return (
     <div>
       <div className="blog-heading text-start py-2 mb-4">Daily Blogs</div>
@@ -27,7 +27,7 @@ const BlogSection = ({ blogs, user }) => {
             <div className="short-description text-start">
               {excerpt(item.description, 120)}
             </div>
-            {console.log(item.id)}
+            {item.id}
             <Link to={`/details/${item.id}`}>
               <button className="btn btn-read">Read More</button>
             </Link>

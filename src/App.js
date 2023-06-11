@@ -2,6 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import About from "./pages/About";
+import TagBlog from "./components/TagBlog";
 import Auth from "./pages/Auth";
 import "./style.scss";
 import "./media-query.css";
@@ -28,7 +29,6 @@ function App() {
       }
     });
   }, []);
-  console.log(user);
 
   const handleLogOut = () => {
     signOut(auth).then(() => {
@@ -54,6 +54,8 @@ function App() {
           element={<Home setActive={setActive} user={user} active={active} />}
         />
         <Route path="/details/:id" element={<Detail setActive={setActive} />} />
+        <Route path="/tag/:tag" element={<TagBlog setActive={setActive} />} />
+
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
         <Route
