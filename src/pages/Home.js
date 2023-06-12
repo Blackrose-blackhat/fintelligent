@@ -39,7 +39,7 @@ const Home = ({ setActive, user, active }) => {
         let tags = [];
         snapshot.docs.forEach((doc) => {
           tags.push(...doc.get("tags"));
-          tags;
+
           list.push({ id: doc.id, ...doc.data() });
         });
         const uniqueTags = [...new Set(tags)];
@@ -48,9 +48,7 @@ const Home = ({ setActive, user, active }) => {
         setLoading(false);
         setActive("home");
       },
-      (error) => {
-        error;
-      }
+      (error) => {}
     );
 
     return () => {
@@ -75,7 +73,6 @@ const Home = ({ setActive, user, active }) => {
     );
   }
 
-  "blogs", blogs;
   return (
     <div className="container-fluid pb-4 pt-4 padding">
       <div className="container-padding">

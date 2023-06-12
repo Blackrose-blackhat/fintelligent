@@ -87,6 +87,7 @@ const Auth = ({ setActive, setUser }) => {
       if (!isNewUser) {
         navigate("/");
         toast.success("Login succesfull");
+        window.location.reload(false);
         setActive("home");
         setUser(user);
       } else {
@@ -98,12 +99,9 @@ const Auth = ({ setActive, setUser }) => {
             toast.error("Account does not exist");
             await setUser(null);
           })
-          .catch((e) => {
-            e;
-          });
+          .catch((e) => {});
       }
     });
-    ("login working");
   };
   const googleAuthSignUp = async () => {
     const { user } = await signInWithPopup(auth, provider)
@@ -121,10 +119,7 @@ const Auth = ({ setActive, setUser }) => {
           setUser(user);
         }
       })
-      .catch((e) => {
-        e;
-      });
-    ("working");
+      .catch((e) => {});
   };
 
   return (
