@@ -45,7 +45,7 @@ $aliceblue : #04f5c9;
 //Header
 .navbar-light .navbar-nav .open > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .nav-link.active {
 	padding-top: 12px!important;
-	padding-bottom: 15px!important;
+	// padding-bottom: 15px!important;
 	padding-left: 20px!important;
 	padding-right: 20px!important;
 	margin: 0 20px!important;
@@ -59,7 +59,7 @@ $aliceblue : #04f5c9;
 .navbar-light .navbar-nav .nav-link {
 	color: #ffffff!important;
 	padding-top: 12px!important;
-	padding-bottom: 15px!important;
+	// padding-bottom: 15px!important;
 	padding-left: 20px!important;
 	padding-right: 20px!important;
 	margin: 0 20px!important;
@@ -68,12 +68,16 @@ $aliceblue : #04f5c9;
 	// @include clip-path(polygon(100% 0, 100% 85%, 14% 85%, 0 100%, 0% 60%, 0 0));
    font-size: 1.3rem;
    text-decoration: none !important;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
 
 	&:focus, &:hover {
 		
 		color: $aliceblue !important;
 		padding-top: 12px!important;
-		padding-bottom: 15px!important;
+		// padding-bottom: 15px!important;
 		padding-left: 20px!important;
 		padding-right: 20px!important;
 		margin: 0 20px;

@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.jpg";
 // eslint-disable-next-line
 import transitions from "bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faRobot, faFile, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 const Header = ({ setActive, active, user, handleLogOut }) => {
   const userId = user?.uid;
-  "userId", userId;
-  "name", user?.displayName;
 
   return (
     <nav
@@ -54,6 +56,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
               </Link>
             </div>
             <button
+              style={{ color: "white", marginBottom: 8, border: 1 }}
               className="navbar-toggler mt-3"
               type="button"
               data-bs-toggle="collapse"
@@ -63,7 +66,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
               aria-expanded="true"
               aria-label="Toggle Navigation"
             >
-              <span className="fa fa-bars"></span>
+              <span className="fa fa-bars" style={{ color: "white" }}></span>
             </button>
 
             <div
@@ -79,7 +82,7 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
                     }`}
                     style={{ textDecoration: "none" }}
                   >
-                    Create
+                    <FontAwesomeIcon icon={faFile} fade /> &nbsp; Create
                   </li>
                 </Link>
                 <Link to="/about" style={{ textDecoration: "none" }}>
@@ -89,7 +92,12 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
                       active === "about" ? "active" : ""
                     }`}
                   >
-                    About
+                    <FontAwesomeIcon
+                      icon={faRobot}
+                      fade
+                      style={{ color: "#ffffff" }}
+                    />
+                    &nbsp; About
                   </li>
                 </Link>
               </ul>
@@ -97,28 +105,44 @@ const Header = ({ setActive, active, user, handleLogOut }) => {
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   {userId && user ? (
                     <>
-                      <div className="profile-logo">
-                        <Avatar
-                          alt={user?.displayName}
-                          style={{ height: 50, width: 50, marginTop: "12px" }}
-                        />
-                      </div>
                       <p
                         style={{
                           color: "white",
                           marginTop: "24px",
                           marginLeft: "19px",
+                          fontSize: "1.3rem",
                         }}
                       >
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          fade
+                          size="sm"
+                          style={{ color: "white" }}
+                        />{" "}
+                        &nbsp;
                         {user?.displayName}
                       </p>
-                      <li className="nav-item nav-link" onClick={handleLogOut}>
-                        logout
+
+                      <li
+                        className="nav-item nav-link"
+                        onClick={handleLogOut}
+                        style={{
+                          fontSize: "1.4rem",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faDoorOpen} fade /> &nbsp; logout
                       </li>
                     </>
                   ) : (
                     <>
-                      <Link to="/auth" style={{ textDecoration: "none" }}>
+                      <Link
+                        to="/auth"
+                        style={{
+                          textDecoration: "none",
+                          marginTop: 15,
+                        }}
+                      >
                         <li
                           onClick={() => setActive("auth")}
                           className={`nav-item nav-link ${

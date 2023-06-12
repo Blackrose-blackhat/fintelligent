@@ -41,26 +41,13 @@ const AddEditblog = ({ user }) => {
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
-        "state_changed",
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          "Upload is " + progress + "% done";
+
           setProgress(progress);
-          switch (snapshot.state) {
-            case "paused":
-              "Upload is paused";
-              break;
-            case "running":
-              "Upload is running";
-              break;
-            default:
-              break;
-          }
         },
-        (error) => {
-          error;
-        },
+        (error) => {},
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
             // toast.info("Image upload to firebase successfully");
@@ -101,9 +88,7 @@ const AddEditblog = ({ user }) => {
         });
         toast.success("Blog created succesfully");
         navigate("/");
-      } catch (error) {
-        error;
-      }
+      } catch (error) {}
     }
   };
   return (

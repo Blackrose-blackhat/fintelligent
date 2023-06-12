@@ -7,7 +7,7 @@ const Trending = ({ blogs }) => {
   const options = {
     loop: true,
     margin: true,
-    new: true,
+
     responsive: {
       0: {
         items: 1,

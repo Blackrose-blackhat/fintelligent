@@ -27,7 +27,7 @@ const BlogSection = ({ blogs }) => {
             <div className="short-description text-start">
               {excerpt(item.description, 120)}
             </div>
-            {item.id}
+
             <Link to={`/details/${item.id}`}>
               <button className="btn btn-read">Read More</button>
             </Link>
