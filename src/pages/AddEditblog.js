@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import { getDownloadURL, uploadBytesResumable } from "@firebase/storage";
-
 import "@pathofdev/react-tag-input/build/index.css";
 import { ref } from "@firebase/storage";
 import { db, storage } from "../services/firebase";
@@ -36,7 +35,6 @@ const AddEditblog = ({ user }) => {
   const [progress, setProgress] = useState(null);
 
   useEffect(() => {
-    // eslint-disable-next-line
     const uploadFile = () => {
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -44,14 +42,13 @@ const AddEditblog = ({ user }) => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
+          console.log(progress);
           setProgress(progress);
         },
-        (error) => {},
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-            // toast.info("Image upload to firebase successfully");
+        async () => {
+          await getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
             setForm((prev) => ({ ...prev, imgUrl: downloadUrl }));
+            toast.info("Image upload to firebase successfully");
           });
         }
       );
